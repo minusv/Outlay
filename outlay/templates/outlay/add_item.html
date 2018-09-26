@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    Add
+{% endblock %}
+{% block customsheets %}
+<link href="{% static 'css/form.css' %}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div class="container border border-primary rounded text-center">
+        <form class="form-signin" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1 class="h3 mb-3 font-weight-normal">Add item.</h1>
+            {{ form.item_name }}
+            <br>
+            {{ form.price }}
+            <br>
+            {{ form.image }}
+            <br>
+            {% for error in form.image.errors %}
+            <br>
+            <div class="alert alert-danger alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>{{error}}</strong>
+            </div>
+            {% endfor %}
+            <br>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+        <p>Return <a href="/">Home.</a></p>
+    </div>
+{% endblock %}

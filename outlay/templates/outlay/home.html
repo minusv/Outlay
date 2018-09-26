@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    Outlay
+{% endblock %}
+{% block customsheets %}
+    <link href="{% static 'css/table.css' %}" rel="stylesheet">
+    <script src="{% static 'js/sort-filter.js' %}"></script>
+{% endblock %}
+{% block body %}
+
+<!-- Nav Bar -->
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="/"><i class="fas fa-home"></i> Outlay</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<br>
+
+<div class="container-fluid">
+    <!-- Add and filter item -->
+    <div class="text-centre">
+        <div class="btn-group">
+            <a class="nav-link" href="/add">
+                <button type="button" class="btn btn-outline-primary">Add Item</button>
+            </a>
+        </div>
+        <div class="btn-group">
+        <input class="form-control" id="filterInput" type="text" placeholder="Search..">
+        </div>
+    </div>
+    <br>
+    <!-- Table -->
+    <table id="itemTable" class="table">
+        <thead>
+            <tr>
+                <th class="align-middle">Image</th>
+                <th>Name<button class="btn btn-sort" onclick="sortTable(0)"><i class="fa fa-sort"></i></button></th>
+                <th>Price<button class="btn btn-sort" onclick="sortTable(1)"><i class="fa fa-sort"></i></button></th>
+                <th class="align-middle">Edit</th>
+                <th class="align-middle">Delete</th>
+            </tr>
+        </thead>
+        <tbody id="columnsTable">
+            {% for item in items %}
+            <tr>
+                <td>
+                    <img class="img-border" src="{{item.image.url}}" alt="Image" style="height:60px;width:60px;">
+                </td>
+                <td class="align-middle">{{item.item_name}}</td>
+                <td class="align-middle price">{{item.price}}</td>
+                <td class="align-middle"><a href="edit/{{item.id}}"><i class="fa fa-pen"></i></a></td>
+                <td class="align-middle"><a href="delete/{{item.id}}"><i class="fa fa-trash"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="p-3">
+    <h4 class="text-primary">Total =  <span class= "badge badge-success" id="grandtotal"></span></h4>
+    </div>
+</div>
+
+<!-- Function to calculate sum -->
+<script>
+    var sum = 0;
+    $('.price').each(function() {
+    sum += parseFloat($(this).text());
+    });
+    $('#grandtotal').html(sum)
+</script>
+{% endblock %}

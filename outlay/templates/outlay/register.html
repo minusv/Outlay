@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    Register
+{% endblock %}
+{% block customsheets %}
+<link href="{% static 'css/form.css' %}" rel="stylesheet">
+{% endblock %}    
+{% block body %}
+<div class="container text-center">
+    <form class="form-signin" method="POST">
+        {% csrf_token %}
+        <h1 class="h3 mb-3 font-weight-normal">Welcome to Outlay.</h1>
+        {{form.username}}
+        <br>
+        {{form.first_name}}
+        <br>
+        {{form.last_name}}
+        <br>
+        {{form.password}}
+        {{form.password2}}
+        {% for error in form.username.errors %}
+        <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>{{error}}</strong>
+        </div>
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>{{error}}</strong>
+        </div>
+        {% endfor %}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+        <br>
+        <p>Already Registered? <a href="/login">Login</a></p>
+    </form>
+</div>
+{% endblock %}
