@@ -14,7 +14,7 @@ def file_rename(instance, filename):
 class Item(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     item_name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=5,decimal_places=2)
+    price = models.DecimalField(max_digits=10,decimal_places=2)
     image = models.ImageField(upload_to=file_rename, 
         validators=[FileExtensionValidator(allowed_extensions=['jpg','jpeg','png'],
         message="Unsupported format.")],null=True, blank=True)
