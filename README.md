@@ -4,6 +4,7 @@ This is a web-app written in Django with a purpose of providing an Expense track
 - Add/Edit item
 - Sort/Filter table
 
+The app is temporarily hosted [here](http://manasvi.pythonanywhere.com/).
 ## Deploying App
 ### Cloning Repository
 Open terminal and run the command:
